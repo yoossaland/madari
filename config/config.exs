@@ -10,6 +10,10 @@ import Config
 config :madari,
   ecto_repos: [Madari.Repo]
 
+config :madari, :generators,
+  binary_id: true,
+  sample_binary_id: "11111111-1111-1111-1111-111111111111"
+
 # Configures the endpoint
 config :madari, MadariWeb.Endpoint,
   url: [host: "localhost"],
