@@ -1,0 +1,18 @@
+[app]
+data_path_prefix = "/yoossa"
+# default: data_path_prefix = "/yoossa"
+# Change data_path_prefix to your repo for developing
+
+[database]
+url = "yoossa.db"
+pool_size = 5
+
+[https]
+host = "localhost"
+bind = "127.0.0.1"
+port = 8443
+keyfile = "tls.key"
+certfile = "tls.crt"
+
+[phoenix]
+secret_key_base = "CHANGE-ME"

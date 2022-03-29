@@ -38,3 +38,7 @@ npm-debug.log
 
 # FreeBSD packages
 *.pkg
+
+tls.crt
+tls.key
+yoossa.toml

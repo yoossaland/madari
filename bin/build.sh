@@ -38,6 +38,8 @@ chmod +x ${STAGE_DIR}/${APP_NAME}/scripts/*
 mkdir -p "${STAGE_DIR}/${APP_NAME}"
 cp -a "${BUILD_DIR}/${APP_NAME}" "${STAGE_DIR}/"
 
+cp "${APP_NAME}.toml.sample" "${STAGE_DIR}/${APP_NAME}/${APP_NAME}.toml.sample"
+
 cd "${STAGE_DIR}" || exit 1
 find "${APP_NAME}" -type f -ls| awk '{print "/" $NF}' >> "${STAGE_DIR}/plist"
 find "usr" -type f -ls| awk '{print "/" $NF}' >> "${STAGE_DIR}/plist"
