@@ -1,0 +1,15 @@
+name: "yoossa"
+version: "0.0.1"
+origin: "sysutils/yoossa"
+comment: "Turn a FreeBSD host into a modern hypervisor with a mobile-first web interface"
+www: https://github.com/yoossaland/yoossa
+maintainer: harshad@sharma.io
+prefix: /
+desc: <<EOD
+Your Own Open Source Software Appliance
+
+Turn a FreeBSD host into a modern hypervisor with a mobile-first web interface.
+EOD
+deps: {
+    sqlite3: {origin: databases/sqlite3, version: 3.35.5_3},
+}

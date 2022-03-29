@@ -1,0 +1,31 @@
+#!/bin/sh
+# shellcheck disable=SC1091,2034
+
+# PROVIDE: yoossa
+# REQUIRE: LOGIN
+#
+# Add the following line to /etc/rc.conf to enable yoossa:
+#
+# yoossa_enable="YES"
+#
+
+yoossa_enable=${yoossa_enable:-"NO"}
+yoossa_root=${yoossa_root:-"/yoossa"}
+. /etc/rc.subr
+
+name=yoossa
+rcvar=yoossa_enable
+
+extra_commands="run debug init" 
+
+procname="${yoossa_root}/bin/yoossa"
+start_cmd="${yoossa_root}/bin/yoossa daemon"
+stop_cmd="${yoossa_root}/bin/yoossa stop"
+
+run_cmd="${yoossa_root}/bin/yoossa start"
+debug_cmd="${yoossa_root}/bin/yoossa start_iex"
+
+init_cmd="${yoossa_root}/scripts/init.sh"
+
+load_rc_config ${name}
+run_rc_command "$1"
