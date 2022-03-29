@@ -7,7 +7,7 @@ defmodule Yoossa.MixProject do
       version: "0.0.1",
       elixir: "~> 1.12",
       elixirc_paths: elixirc_paths(Mix.env()),
-      compilers: [:gettext] ++ Mix.compilers(),
+      compilers: [:gettext] ++ Mix.compilers() ++ [:phoenix_sass],
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps(),
@@ -60,6 +60,7 @@ defmodule Yoossa.MixProject do
       {:plug_cowboy, "~> 2.5"},
       {:toml, "~> 0.6.2"},
       {:net_address, "~> 0.3.0"},
+      {:phoenix_sass, "~> 0.1.0"},
     ]
   end
 

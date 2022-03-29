@@ -20,6 +20,7 @@ config :yoossa, YoossaWeb.Endpoint,
   code_reloader: true,
   debug_errors: true,
   secret_key_base: "b2sYpAMWOM1fQASprNC+DEYNffEbJ8IQq+d6xeQDS3lUMpYmw9CTYAThQuxZN94l",
+  reloadable_compilers: [:gettext, :phoenix, :elixir, :phoenix_sass],
   watchers: [
     # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
     esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
@@ -53,6 +54,7 @@ config :yoossa, YoossaWeb.Endpoint,
 config :yoossa, YoossaWeb.Endpoint,
   live_reload: [
     patterns: [
+      ~r"priv/sass/.*(sass|scss)$",
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
       ~r"lib/yoossa_web/(live|views)/.*(ex)$",
