@@ -16,7 +16,7 @@ madari_root=${madari_root:-"/madari"}
 name=madari
 rcvar=madari_enable
 
-extra_commands="run debug init" 
+extra_commands="run debug init migrate rollback user_create" 
 
 procname="${madari_root}/bin/madari"
 start_cmd="${madari_root}/bin/madari daemon"
@@ -24,6 +24,10 @@ stop_cmd="${madari_root}/bin/madari stop"
 
 run_cmd="${madari_root}/bin/madari start"
 debug_cmd="${madari_root}/bin/madari start_iex"
+
+migrate_cmd="${madari_root}/bin/madari eval 'Madari.Release.migrate'"
+rollback_cmd="${madari_root}/bin/madari eval 'Madari.Release.rollback'"
+user_create_cmd="${madari_root}/bin/madari eval 'Madari.Release.user_create'"
 
 init_cmd="${madari_root}/scripts/init.sh"
 
