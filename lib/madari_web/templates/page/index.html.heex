@@ -1,20 +1,28 @@
 <section class="hero is-fullheight">
 <div class="hero-body">
-    <div class="container has-text-centered is-fullwidth">
-    <p class="title">
-        Madari
+  <div class="container has-text-centered is-fullwidth">
+  <p class="title">
+    Madari
+  </p>
+  <p class="subtitle">
+    FreeBSD Hypervisor
+  </p>
+  <%= if @current_user do %>
+    <p class="block">
+      Hello <%= @current_user.email %>!
     </p>
-    <p class="subtitle">
-        FreeBSD Hypervisor
-    </p>
-    <p>
-      <button class="button is-primary">
-      <span class="icon">
+  <% else %>  
+  <p>
+    <a href={Routes.user_session_path(@conn, :new)}>
+      <button class="button is-link" type="submit">
+        <span class="icon">
           <FontAwesome.LiveView.icon name="user-lock" opts={[aria_hidden: true, height: "14px", fill: "#fff"]} />
-      </span>
-      <span>Login</span>
+        </span>
+        <span>Log in</span>
       </button>
-    </p>
-    </div>
+    </a>
+  </p>
+  <% end %>
+  </div>
 </div>
 </section>

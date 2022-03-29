@@ -1,14 +1,23 @@
-<h1>Forgot your password?</h1>
+<section class="box is-vcentered">
+  <h3 class="title">Madari</h3>
+  <h5 class="subtitle">Forgot your password?</h5>
 
-<.form let={f} for={:user} action={Routes.user_reset_password_path(@conn, :create)}>
-  <%= label f, :email %>
-  <%= email_input f, :email, required: true %>
+  <.form let={f} for={:user} action={Routes.user_reset_password_path(@conn, :create)}>
+    <div class="field">
+        <%= label f, :email, class: "label" %>
+        <div class="control">
+            <%= email_input f, :email, required: true, class: "input", placeholder: "username@example.com" %>
+        </div>
+      </div>
 
-  <div>
-    <%= submit "Send instructions to reset password" %>
-  </div>
-</.form>
+    <div>
+      <%= submit "Send instructions to reset password", class: "button is-primary" %>
+    </div>
+  </.form>
+</section>
 
-<p>
-  <%= link "Log in", to: Routes.user_session_path(@conn, :new) %>
-</p>
+<section class="block is-vcentered">
+  <p>
+    <%= link "Log in", to: Routes.user_session_path(@conn, :new) %>
+  </p>
+</section>
