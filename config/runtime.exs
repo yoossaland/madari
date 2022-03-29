@@ -55,3 +55,14 @@ config :madari, MadariWeb.Endpoint,
     certfile: Path.join(data_path_prefix, https_certfile)
   ],
   secret_key_base: secret_key_base
+
+%{
+  "pushover" => %{
+    "user_key" => user_key,
+    "api_token" => api_token,
+  }
+} = conf
+
+config :pushover,
+  user: user_key,
+  token: api_token

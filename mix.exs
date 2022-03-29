@@ -29,7 +29,7 @@ defmodule Madari.MixProject do
   def application do
     [
       mod: {Madari.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :telemetry]
     ]
   end
 
@@ -63,6 +63,9 @@ defmodule Madari.MixProject do
       {:net_address, "~> 0.3.0"},
       {:phoenix_sass, "~> 0.1.0"},
       {:ex_fontawesome, "~> 0.7.1"},
+      {:pushover, "~> 0.3.3"},
+      {:mime, "~> 2.0.2", override: true},
+      {:telemetry, "~> 1.0.0", override: true},
     ]
   end
 

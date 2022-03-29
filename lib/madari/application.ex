@@ -15,9 +15,10 @@ defmodule Madari.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: Madari.PubSub},
       # Start the Endpoint (http/https)
-      MadariWeb.Endpoint
+      MadariWeb.Endpoint,
       # Start a worker by calling: Madari.Worker.start_link(arg)
       # {Madari.Worker, arg}
+      {Madari.Api.Supervisor, []},
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
