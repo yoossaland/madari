@@ -1,11 +1,11 @@
-chown root:wheel "/yoossa"
-chown 700 "/yoossa"
+chown root:wheel "/madari"
+chown 700 "/madari"
 
-if [ -f /yoossa/tls.key ] ; then
+if [ -f /madari/tls.key ] ; then
   echo "[ok] TLS keys for https endpoint"
 else
   echo "[create] TLS keys for https endpoint"
-  cat > /yoossa/request.txt <<INNER_EOF
+  cat > /madari/request.txt <<INNER_EOF
 [req]
 default_bits = 4096
 default_md = sha256
@@ -18,27 +18,27 @@ ST = NA
 L = NA
 O = NA
 OU = NA
-CN = yoossa.local
+CN = madari.local
 [v3_req]
 keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
 extendedKeyUsage = serverAuth
 subjectAltName = @alt_names
 [alt_names]
-DNS.1 = yoossa.local
+DNS.1 = madari.local
 DNS.2 = localhost
 IP.1 = 127.0.0.1
 INNER_EOF
-  openssl req -new -nodes -x509 -days 36500 -newkey rsa:2048 -keyout /yoossa/tls.key -out /yoossa/tls.crt -config /yoossa/request.txt 
+  openssl req -new -nodes -x509 -days 36500 -newkey rsa:2048 -keyout /madari/tls.key -out /madari/tls.crt -config /madari/request.txt 
 fi
 
-if [ -f /yoossa/yoossa.toml ] ; then
-  echo "[ok] Config: /yoossa/yoossa.toml"
+if [ -f /madari/madari.toml ] ; then
+  echo "[ok] Config: /madari/madari.toml"
 else
-  echo "[create] Config: /yoossa/yoossa.toml"
+  echo "[create] Config: /madari/madari.toml"
   echo "[create] Secret-key for web server"
   SECRET_KEY="$( openssl rand -base64 128 | strings | grep -o '[[:alnum:]]' | head -n 64 | tr -d '\n'; echo )"
-  cp /yoossa/yoossa.toml.sample /yoossa/yoossa.toml
-  sed -i '' -e "s/CHANGE-ME/${SECRET_KEY}/g" /yoossa/yoossa.toml
-  chown root:wheel /yoossa/yoossa.toml
-  chmod 600 /yoossa/yoossa.toml
+  cp /madari/madari.toml.sample /madari/madari.toml
+  sed -i '' -e "s/CHANGE-ME/${SECRET_KEY}/g" /madari/madari.toml
+  chown root:wheel /madari/madari.toml
+  chmod 600 /madari/madari.toml
 fi

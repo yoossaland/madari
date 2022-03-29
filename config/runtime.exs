@@ -1,6 +1,6 @@
 import Config
 import IP
-import Yoossa.ConfigUtil
+import Madari.ConfigUtil
 
 # config/runtime.exs is executed for all environments, including
 # during releases. It is executed after compilation and before the
@@ -9,9 +9,9 @@ import Yoossa.ConfigUtil
 # any compile-time configuration in here, as it won't be applied.
 # The block below contains prod specific runtime configuration.
 
-conf = Yoossa.ConfigUtil.auto_load_config!()
+conf = Madari.ConfigUtil.auto_load_config!()
 
-config :yoossa, YoossaWeb.Endpoint, server: true
+config :madari, MadariWeb.Endpoint, server: true
 
 %{"app" => %{"data_path_prefix" => data_path_prefix}} = conf
 
@@ -19,7 +19,7 @@ config :yoossa, YoossaWeb.Endpoint, server: true
 
 database_path = Path.join(data_path_prefix, database_url)
 
-config :yoossa, Yoossa.Repo,
+config :madari, Madari.Repo,
   database: database_path,
   pool_size: pool_size
 
@@ -27,7 +27,7 @@ config :yoossa, Yoossa.Repo,
 %{"phoenix" => %{"secret_key_base" => secret_key_base}} = conf
 
 if String.starts_with?(secret_key_base, "CHANGE") do
-  raise "Please update yoossa.toml with a secret key."
+  raise "Please update madari.toml with a secret key."
 end
 
 %{
@@ -42,7 +42,7 @@ end
 
 https_ip = IP.from_string!(https_bind)
 
-config :yoossa, YoossaWeb.Endpoint,
+config :madari, MadariWeb.Endpoint,
   url: [
     host: https_host,
     port: https_port

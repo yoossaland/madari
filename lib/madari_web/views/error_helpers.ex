@@ -1,4 +1,4 @@
-defmodule YoossaWeb.ErrorHelpers do
+defmodule MadariWeb.ErrorHelpers do
   @moduledoc """
   Conveniences for translating and building error messages.
   """
@@ -39,9 +39,9 @@ defmodule YoossaWeb.ErrorHelpers do
     # should be written to the errors.po file. The :count option is
     # set by Ecto and indicates we should also apply plural rules.
     if count = opts[:count] do
-      Gettext.dngettext(YoossaWeb.Gettext, "errors", msg, msg, count, opts)
+      Gettext.dngettext(MadariWeb.Gettext, "errors", msg, msg, count, opts)
     else
-      Gettext.dgettext(YoossaWeb.Gettext, "errors", msg, opts)
+      Gettext.dgettext(MadariWeb.Gettext, "errors", msg, opts)
     end
   end
 end

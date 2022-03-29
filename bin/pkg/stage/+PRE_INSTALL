@@ -1,14 +1,14 @@
-echo "[pre] yoossa installer is configuring your system"
+echo "[pre] madari installer is configuring your system"
 
-zfs list | grep yoossa > /dev/null
+zfs list | grep madari > /dev/null
 dataset_exists="$?"
 if [ "$dataset_exists" -eq "1" ]; then
     zfs create \
-        -o mountpoint=/yoossa \
+        -o mountpoint=/madari \
         -o atime=off \
         -o compression=zstd \
-        zroot/yoossa
+        zroot/madari
 else
     datetime="$( date +"%m-%d-%Y_%H-%M" | tr -d "\n" )"
-    zfs snapshot -r "zroot/yoossa@pre-yossa-${datetime}"
+    zfs snapshot -r "zroot/madari@pre-madari-${datetime}"
 fi

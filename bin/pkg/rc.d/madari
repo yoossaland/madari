@@ -1,0 +1,31 @@
+#!/bin/sh
+# shellcheck disable=SC1091,2034
+
+# PROVIDE: madari
+# REQUIRE: LOGIN
+#
+# Add the following line to /etc/rc.conf to enable madari:
+#
+# madari_enable="YES"
+#
+
+madari_enable=${madari_enable:-"NO"}
+madari_root=${madari_root:-"/madari"}
+. /etc/rc.subr
+
+name=madari
+rcvar=madari_enable
+
+extra_commands="run debug init" 
+
+procname="${madari_root}/bin/madari"
+start_cmd="${madari_root}/bin/madari daemon"
+stop_cmd="${madari_root}/bin/madari stop"
+
+run_cmd="${madari_root}/bin/madari start"
+debug_cmd="${madari_root}/bin/madari start_iex"
+
+init_cmd="${madari_root}/scripts/init.sh"
+
+load_rc_config ${name}
+run_rc_command "$1"

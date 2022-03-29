@@ -7,14 +7,14 @@
 # General application configuration
 import Config
 
-config :yoossa,
-  ecto_repos: [Yoossa.Repo]
+config :madari,
+  ecto_repos: [Madari.Repo]
 
 # Configures the endpoint
-config :yoossa, YoossaWeb.Endpoint,
+config :madari, MadariWeb.Endpoint,
   url: [host: "localhost"],
-  render_errors: [view: YoossaWeb.ErrorView, accepts: ~w(html json), layout: false],
-  pubsub_server: Yoossa.PubSub,
+  render_errors: [view: MadariWeb.ErrorView, accepts: ~w(html json), layout: false],
+  pubsub_server: Madari.PubSub,
   live_view: [signing_salt: "WMp0BBPZ"]
 
 # Configures the mailer
@@ -24,7 +24,7 @@ config :yoossa, YoossaWeb.Endpoint,
 #
 # For production it's recommended to configure a different adapter
 # at the `config/runtime.exs`.
-config :yoossa, Yoossa.Mailer, adapter: Swoosh.Adapters.Local
+config :madari, Madari.Mailer, adapter: Swoosh.Adapters.Local
 
 # Swoosh API client is needed for adapters other than SMTP.
 config :swoosh, :api_client, false
@@ -47,7 +47,7 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
-config :yoossa, :phoenix_sass,
+config :madari, :phoenix_sass,
   pattern: "sass/**/*.s[ac]ss",  # this is the default
   output_dir: "static/assets",      # this is the default
   output_style: 3   # this is the default (compressed)

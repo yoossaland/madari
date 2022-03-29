@@ -1,10 +1,10 @@
 [app]
-data_path_prefix = "/yoossa"
-# default: data_path_prefix = "/yoossa"
+data_path_prefix = "/madari"
+# default: data_path_prefix = "/madari"
 # Change data_path_prefix to your repo for developing
 
 [database]
-url = "yoossa.db"
+url = "madari.db"
 pool_size = 5
 
 [https]

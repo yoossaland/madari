@@ -1,5 +1,5 @@
-defmodule YoossaWeb.LayoutView do
-  use YoossaWeb, :view
+defmodule MadariWeb.LayoutView do
+  use MadariWeb, :view
 
   # Phoenix LiveDashboard is available only in development by default,
   # so we instruct Elixir to not warn if the dashboard route is missing.

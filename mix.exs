@@ -1,9 +1,9 @@
-defmodule Yoossa.MixProject do
+defmodule Madari.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :yoossa,
+      app: :madari,
       version: "0.0.1",
       elixir: "~> 1.12",
       elixirc_paths: elixirc_paths(Mix.env()),
@@ -12,7 +12,7 @@ defmodule Yoossa.MixProject do
       aliases: aliases(),
       deps: deps(),
       releases: [
-        yoossa: [
+        madari: [
           include_erts: true,
           include_executables_for: [:unix],
           applications: [
@@ -28,7 +28,7 @@ defmodule Yoossa.MixProject do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: {Yoossa.Application, []},
+      mod: {Madari.Application, []},
       extra_applications: [:logger, :runtime_tools]
     ]
   end

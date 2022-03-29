@@ -1,4 +1,4 @@
-defmodule YoossaWeb.Telemetry do
+defmodule MadariWeb.Telemetry do
   use Supervisor
   import Telemetry.Metrics
 
@@ -31,23 +31,23 @@ defmodule YoossaWeb.Telemetry do
       ),
 
       # Database Metrics
-      summary("yoossa.repo.query.total_time",
+      summary("madari.repo.query.total_time",
         unit: {:native, :millisecond},
         description: "The sum of the other measurements"
       ),
-      summary("yoossa.repo.query.decode_time",
+      summary("madari.repo.query.decode_time",
         unit: {:native, :millisecond},
         description: "The time spent decoding the data received from the database"
       ),
-      summary("yoossa.repo.query.query_time",
+      summary("madari.repo.query.query_time",
         unit: {:native, :millisecond},
         description: "The time spent executing the query"
       ),
-      summary("yoossa.repo.query.queue_time",
+      summary("madari.repo.query.queue_time",
         unit: {:native, :millisecond},
         description: "The time spent waiting for a database connection"
       ),
-      summary("yoossa.repo.query.idle_time",
+      summary("madari.repo.query.idle_time",
         unit: {:native, :millisecond},
         description:
           "The time the connection spent waiting before being checked out for the query"
@@ -65,7 +65,7 @@ defmodule YoossaWeb.Telemetry do
     [
       # A module, function and arguments to be invoked periodically.
       # This function must call :telemetry.execute/3 and a metric must be added above.
-      # {YoossaWeb, :count_users, []}
+      # {MadariWeb, :count_users, []}
     ]
   end
 end

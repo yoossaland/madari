@@ -1,4 +1,4 @@
-defmodule Yoossa.Application do
+defmodule Madari.Application do
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
   @moduledoc false
@@ -9,20 +9,20 @@ defmodule Yoossa.Application do
   def start(_type, _args) do
     children = [
       # Start the Ecto repository
-      Yoossa.Repo,
+      Madari.Repo,
       # Start the Telemetry supervisor
-      YoossaWeb.Telemetry,
+      MadariWeb.Telemetry,
       # Start the PubSub system
-      {Phoenix.PubSub, name: Yoossa.PubSub},
+      {Phoenix.PubSub, name: Madari.PubSub},
       # Start the Endpoint (http/https)
-      YoossaWeb.Endpoint
-      # Start a worker by calling: Yoossa.Worker.start_link(arg)
-      # {Yoossa.Worker, arg}
+      MadariWeb.Endpoint
+      # Start a worker by calling: Madari.Worker.start_link(arg)
+      # {Madari.Worker, arg}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: Yoossa.Supervisor]
+    opts = [strategy: :one_for_one, name: Madari.Supervisor]
     Supervisor.start_link(children, opts)
   end
 
@@ -30,7 +30,7 @@ defmodule Yoossa.Application do
   # whenever the application is updated.
   @impl true
   def config_change(changed, _new, removed) do
-    YoossaWeb.Endpoint.config_change(changed, removed)
+    MadariWeb.Endpoint.config_change(changed, removed)
     :ok
   end
 end

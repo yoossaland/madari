@@ -1,12 +1,12 @@
-defmodule YoossaWeb.Endpoint do
-  use Phoenix.Endpoint, otp_app: :yoossa
+defmodule MadariWeb.Endpoint do
+  use Phoenix.Endpoint, otp_app: :madari
 
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
   # Set :encryption_salt if you would also like to encrypt it.
   @session_options [
     store: :cookie,
-    key: "_yoossa_key",
+    key: "_madari_key",
     signing_salt: "QEP/wvaJ"
   ]
 
@@ -18,7 +18,7 @@ defmodule YoossaWeb.Endpoint do
   # when deploying your static files in production.
   plug Plug.Static,
     at: "/",
-    from: :yoossa,
+    from: :madari,
     gzip: true,
     only: ~w(assets fonts images favicon.ico robots.txt)
 
@@ -28,7 +28,7 @@ defmodule YoossaWeb.Endpoint do
     socket "/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket
     plug Phoenix.LiveReloader
     plug Phoenix.CodeReloader
-    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :yoossa
+    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :madari
   end
 
   plug Phoenix.LiveDashboard.RequestLogger,
@@ -46,5 +46,5 @@ defmodule YoossaWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
-  plug YoossaWeb.Router
+  plug MadariWeb.Router
 end

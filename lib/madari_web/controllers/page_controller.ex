@@ -1,5 +1,5 @@
-defmodule YoossaWeb.PageController do
-  use YoossaWeb, :controller
+defmodule MadariWeb.PageController do
+  use MadariWeb, :controller
 
   def index(conn, _params) do
     render(conn, "index.html")

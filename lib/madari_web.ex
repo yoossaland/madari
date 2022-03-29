@@ -1,12 +1,12 @@
-defmodule YoossaWeb do
+defmodule MadariWeb do
   @moduledoc """
   The entrypoint for defining your web interface, such
   as controllers, views, channels and so on.
 
   This can be used in your application as:
 
-      use YoossaWeb, :controller
-      use YoossaWeb, :view
+      use MadariWeb, :controller
+      use MadariWeb, :view
 
   The definitions below will be executed for every view,
   controller, etc, so keep them short and clean, focused
@@ -19,19 +19,19 @@ defmodule YoossaWeb do
 
   def controller do
     quote do
-      use Phoenix.Controller, namespace: YoossaWeb
+      use Phoenix.Controller, namespace: MadariWeb
 
       import Plug.Conn
-      import YoossaWeb.Gettext
-      alias YoossaWeb.Router.Helpers, as: Routes
+      import MadariWeb.Gettext
+      alias MadariWeb.Router.Helpers, as: Routes
     end
   end
 
   def view do
     quote do
       use Phoenix.View,
-        root: "lib/yoossa_web/templates",
-        namespace: YoossaWeb
+        root: "lib/madari_web/templates",
+        namespace: MadariWeb
 
       # Import convenience functions from controllers
       import Phoenix.Controller,
@@ -45,7 +45,7 @@ defmodule YoossaWeb do
   def live_view do
     quote do
       use Phoenix.LiveView,
-        layout: {YoossaWeb.LayoutView, "live.html"}
+        layout: {MadariWeb.LayoutView, "live.html"}
 
       unquote(view_helpers())
     end
@@ -80,7 +80,7 @@ defmodule YoossaWeb do
   def channel do
     quote do
       use Phoenix.Channel
-      import YoossaWeb.Gettext
+      import MadariWeb.Gettext
     end
   end
 
@@ -95,9 +95,9 @@ defmodule YoossaWeb do
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
 
-      import YoossaWeb.ErrorHelpers
-      import YoossaWeb.Gettext
-      alias YoossaWeb.Router.Helpers, as: Routes
+      import MadariWeb.ErrorHelpers
+      import MadariWeb.Gettext
+      alias MadariWeb.Router.Helpers, as: Routes
     end
   end
 

@@ -1,4 +1,4 @@
-# Yoossa
+# Madari
 
 To start your Phoenix server:
 

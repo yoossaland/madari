@@ -1,5 +1,5 @@
-defmodule YoossaWeb.ErrorView do
-  use YoossaWeb, :view
+defmodule MadariWeb.ErrorView do
+  use MadariWeb, :view
 
   # If you want to customize a particular status code
   # for a certain format, you may uncomment below.

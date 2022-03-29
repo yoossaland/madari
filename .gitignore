@@ -20,7 +20,7 @@ erl_crash.dump
 *.ez
 
 # Ignore package tarball (built via "mix hex.build").
-yoossa-*.tar
+madari-*.tar
 
 # Ignore assets that are produced by build tools.
 /priv/static/assets/
@@ -41,4 +41,4 @@ npm-debug.log
 
 tls.crt
 tls.key
-yoossa.toml
+madari.toml

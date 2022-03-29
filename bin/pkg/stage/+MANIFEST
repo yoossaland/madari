@@ -1,8 +1,8 @@
-name: "yoossa"
+name: "madari"
 version: "0.0.1"
-origin: "sysutils/yoossa"
+origin: "sysutils/madari"
 comment: "Turn a FreeBSD host into a modern hypervisor with a mobile-first web interface"
-www: https://github.com/yoossaland/yoossa
+www: https://github.com/yoosaland/madari
 maintainer: harshad@sharma.io
 prefix: /
 desc: <<EOD

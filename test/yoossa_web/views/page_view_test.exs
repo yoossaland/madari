@@ -1,3 +1,3 @@
-defmodule YoossaWeb.PageViewTest do
-  use YoossaWeb.ConnCase, async: true
+defmodule MadariWeb.PageViewTest do
+  use MadariWeb.ConnCase, async: true
 end

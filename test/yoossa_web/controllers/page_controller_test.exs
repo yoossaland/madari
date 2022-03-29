@@ -1,5 +1,5 @@
-defmodule YoossaWeb.PageControllerTest do
-  use YoossaWeb.ConnCase
+defmodule MadariWeb.PageControllerTest do
+  use MadariWeb.ConnCase
 
   test "GET /", %{conn: conn} do
     conn = get(conn, "/")

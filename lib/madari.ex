@@ -1,6 +1,6 @@
-defmodule Yoossa do
+defmodule Madari do
   @moduledoc """
-  Yoossa keeps the contexts that define your domain
+  Madari keeps the contexts that define your domain
   and business logic.
 
   Contexts are also responsible for managing your data, regardless
