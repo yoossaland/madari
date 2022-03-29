@@ -61,6 +61,7 @@ defmodule Yoossa.MixProject do
       {:toml, "~> 0.6.2"},
       {:net_address, "~> 0.3.0"},
       {:phoenix_sass, "~> 0.1.0"},
+      {:ex_fontawesome, "~> 0.7.1"},
     ]
   end
 

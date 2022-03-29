@@ -52,6 +52,8 @@ config :yoossa, :phoenix_sass,
   output_dir: "static/assets",      # this is the default
   output_style: 3   # this is the default (compressed)
 
+config :ex_fontawesome, type: "solid"
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"
