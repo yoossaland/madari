@@ -18,7 +18,7 @@ defmodule Madari.Api.Notification do
   end
 
   def subscribe do
-    Phoenix.PubSub.subscribe(Freedive.PubSub, @topic)
+    Phoenix.PubSub.subscribe(Madari.PubSub, @topic)
   end
 
   defp broadcast(frame) do
@@ -48,13 +48,13 @@ defmodule Madari.Api.Notification do
 
   @impl true
   def handle_cast({:broadcast, frame}, state) do
-    Phoenix.PubSub.broadcast(Freedive.PubSub, @topic, frame)
+    Phoenix.PubSub.broadcast(Madari.PubSub, @topic, frame)
     {:noreply, state}
   end
 
   @impl true
   def handle_info(:update_state, state) do
-    send_via_pushover("Madari Online", "Service is back online.", 1)
+    # send_via_pushover("Madari Online", "Service is back online.", 1)
     {:noreply, state}
   end
 
