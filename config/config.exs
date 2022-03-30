@@ -51,11 +51,6 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
-config :madari, :phoenix_sass,
-  pattern: "sass/**/*.s[ac]ss",  # this is the default
-  output_dir: "static/assets",      # this is the default
-  output_style: 3   # this is the default (compressed)
-
 config :ex_fontawesome, type: "solid"
 
 # Import environment specific config. This must remain at the bottom

@@ -54,7 +54,6 @@ config :madari, MadariWeb.Endpoint,
 config :madari, MadariWeb.Endpoint,
   live_reload: [
     patterns: [
-      ~r"priv/sass/.*(sass|scss)$",
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
       ~r"lib/madari_web/(live|views)/.*(ex)$",
