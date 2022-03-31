@@ -65,6 +65,9 @@ defmodule Madari.MixProject do
       {:pushover, "~> 0.3.3"},
       {:mime, "~> 2.0.2", override: true},
       {:telemetry, "~> 1.0.0", override: true},
+      {:rustler, "~> 0.24.0"},
+      {:sizeable, "~> 1.0"},
+      {:timex, "~> 3.0"},
     ]
   end
 

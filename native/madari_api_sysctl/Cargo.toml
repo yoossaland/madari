@@ -1,0 +1,15 @@
+[package]
+name = "madari_api_sysctl"
+version = "0.1.0"
+authors = []
+edition = "2018"
+
+[lib]
+name = "madari_api_sysctl"
+path = "src/lib.rs"
+crate-type = ["cdylib"]
+
+[dependencies]
+rustler = "0.24.0"
+sysctl = "0.4.4"
+libc = "0.2.121"
