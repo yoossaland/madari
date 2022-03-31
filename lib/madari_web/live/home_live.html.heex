@@ -1,2 +1,70 @@
-<.live_component module={Madari.LiveComponents.HealthIcon} id="health_icon" content="Ohai" />
+<div class="card">
+  <header class="card-header">
+    <p class="card-header-title">
+      Host
+    </p>
+    <button class="card-header-icon" aria-label="more options">
+      <span class="icon">
+        <FontAwesome.LiveView.icon name="server"
+          opts={[aria_hidden: true, height: "20px", fill: "#888"]}/>
+      </span>
+    </button>
+  </header>
+  <div class="card-content">
+    <div class="content">
+      <div class="columns">
+        <div class="column">
+          <h4 class="title is-4">
+            <%= @sysinfo[:hostname] %>
+          </h4>
+          <h6 class="subtitle is-7" style="color: #999">
+            Hostname
+          </h6>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column">
+          <h4 class="title is-6">
+            <%= @sysinfo[:ostype] %> <%= @sysinfo[:osrelease] %>
+          </h4>
+          <h6 class="subtitle is-7" style="color: #999">
+            Operating System [ <%= @sysinfo[:bootmethod] %> ]
+          </h6>
+        </div>
+        <div class="column">
+          <h4 class="title is-6">
+            Uptime is <%= @sysinfo[:uptime] %>
+          </h4>
+          <h6 class="subtitle is-7" style="color: #999">
+            <%= @sysinfo[:boottime] %>
+          </h6>
+        </div>
+      </div>
+
+      <div class="columns">
+
+        <div class="column">
+          <h4 class="title is-6">
+            <%= @sysinfo[:machine] |> String.upcase() %> with <%= @sysinfo[:ncpu] %> cores
+          </h4>
+          <h6 class="subtitle is-7" style="color: #999">
+            <%= @sysinfo[:model] %>
+          </h6>
+        </div>
+
+        <div class="column">
+          <h4 class="title is-6">
+            <%= Sizeable.filesize(@sysinfo[:physmem]) %>
+          </h4>
+          <h6 class="subtitle is-7" style="color: #999">
+            Physical Memory
+          </h6>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
 

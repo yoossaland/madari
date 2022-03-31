@@ -1,5 +1,6 @@
 defmodule Madari.Api.Sysinfo do
   use GenServer
+  use Timex
 
   @name __MODULE__
   @topic "sysinfo"
@@ -7,10 +8,6 @@ defmodule Madari.Api.Sysinfo do
   # Client
   def start_link(_args) do
     GenServer.start_link(@name, [], name: @name)
-  end
-
-  def is_available? do
-    GenServer.call(@name, :is_available)
   end
 
   def state do
@@ -25,36 +22,11 @@ defmodule Madari.Api.Sysinfo do
     GenServer.cast(@name, {:broadcast, frame})
   end
 
-  defp broadcast_state(state) do
-    GenServer.cast(@name, {:broadcast, {:sysinfo, state}})
-  end
-
   # Server
   @impl true
   def init(state) do
     Process.send_after(self(), :update_state, 1)
     {:ok, state}
-  end
-
-  @impl true
-  def handle_info(:update_state, _state) do
-    Process.send_after(self(), :update_state, 1000)
-    uptime_stdout = query_uptime()
-    state = %{
-      hostname: query_hostname(),
-      datetime: query_datetime(),
-      uptime: uptime_stdout,
-      uptime_time: parse_uptime_time(uptime_stdout),
-      uptime_users: parse_uptime_users(uptime_stdout),
-      uptime_load: parse_uptime_load(uptime_stdout),
-    }
-    broadcast_state(state)
-    {:noreply, state}
-  end
-
-  @impl true
-  def handle_call(:is_available, _from, state) do
-    {:reply, true, state}
   end
 
   @impl true
@@ -68,31 +40,37 @@ defmodule Madari.Api.Sysinfo do
     {:noreply, state}
   end
 
+  @impl true
+  def handle_info(:update_state, _state) do
+    {boottime_sec, _} = Integer.parse(Madari.Api.Sysctl.boottime())
+    boottime = DateTime.from_unix!(boottime_sec, :second, Calendar.ISO)
+    boottime = DateTime.shift_zone!(boottime, "Etc/UTC", Calendar.UTCOnlyTimeZoneDatabase)
+    boottime = Calendar.strftime(boottime, "%A, %B %d %Y %I:%M %p")
+    uptime = Timex.parse!(boottime, "%A, %B %d %Y %I:%M %p", :strftime)
+      |> Timex.format!("{relative}", :relative)
+      |> String.replace(" ago", "")
+    state = %{
+      hostname: sysctl_read("kern.hostname"),
+      ostype: sysctl_read("kern.ostype"),
+      osrelease: sysctl_read("kern.osrelease"),
+      osrevision: sysctl_read("kern.osrevision"),
+      boottime: boottime,
+      uptime: uptime,
+      disks: sysctl_read("kern.disks"),
+      loadavg: sysctl_read("vm.loadavg"),
+      machine: sysctl_read("hw.machine"),
+      model: sysctl_read("hw.model"),
+      ncpu: sysctl_read("hw.ncpu"),
+      physmem: sysctl_read("hw.physmem"),
+      bootmethod: sysctl_read("machdep.bootmethod"),
+    }
+    broadcast({:sysinfo, state})
+    Process.send_after(self(), :update_state, 10000)
+    {:noreply, state}
+  end
+
   # Internal API
-  defp query_datetime() do
-    {out, status} = System.cmd("date", [])
-    out |> String.trim()
-  end
-
-  defp query_uptime() do
-    {out, status} = System.cmd("uptime", [])
-    out
-  end
-
-  defp parse_uptime_time(uptime_stdout) do
-    uptime_stdout  |> String.trim() |> String.split("user") |> List.first() |> String.split(",") |> Enum.drop(-1) |> Enum.join(",")
-  end
-
-  defp parse_uptime_users(uptime_stdout) do
-    uptime_stdout |> String.trim()|> String.split("user") |> List.first() |> String.split(",") |> List.last()
-  end
-
-  defp parse_uptime_load(uptime_stdout) do
-    uptime_stdout |> String.trim()|> String.split("load averages:") |> List.last() #|> String.split(",") |> List.last()
-  end
-
-  defp query_hostname() do
-    {out, status} = System.cmd("hostname", [])
-    out |> String.trim()
+  defp sysctl_read(oid) do
+    Madari.Api.Sysctl.read(oid)
   end
 end

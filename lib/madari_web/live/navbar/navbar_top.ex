@@ -1,12 +1,12 @@
 defmodule MadariWeb.Navbar.Top do
   use Phoenix.LiveView
-  alias Madari.Api.Sysinfo
+  # alias Madari.Api.Sysinfo
   alias MadariWeb.Router.Helpers, as: Routes
 
   def mount(_params, _session, socket) do
-    if connected?(socket), do: Sysinfo.subscribe()
+    # if connected?(socket), do: Sysinfo.subscribe()
     {:ok, socket |> assign(%{
-      sysinfo: Sysinfo.state(),
+      # sysinfo: Sysinfo.state(),
     })}
   end
 

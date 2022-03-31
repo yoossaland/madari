@@ -6,55 +6,25 @@ defmodule MadariWeb.Navbar.Bottom do
   def mount(_params, _session, socket) do
     if connected?(socket), do: Sysinfo.subscribe()
     {:ok, socket |> assign(%{
-      sysinfo: Sysinfo.state(),
-      icon_style: "heart-circle-check",
-      icon_fill_color: "#5c5",
-      icon_description: "Healthy",
+      sysinfo: %{},
     })}
   end
 
   def handle_info({:sysinfo, sysinfo}, socket) do
-    {load, _} = sysinfo[:uptime_load] |> String.split(",") |> List.first() |> String.trim() |> Float.parse()
-    IO.inspect(load)
-    if load > 1.0 do
-      if load > 2.0 do
-        {:noreply, socket |> assign(%{
-          icon_style: "heart-circle-xmark",
-          icon_fill_color: "#c55",
-          icon_description: "Degraded",
-          sysinfo: sysinfo,
-        })}
-      else
-        {:noreply, socket |> assign(%{
-          icon_style: "heart-circle-exclamation",
-          icon_fill_color: "#cc5",
-          icon_description: "Stressed",
-          sysinfo: sysinfo,
-        })}
-      end
-    else
-      {:noreply, socket |> assign(%{
-        icon_style: "heart-circle-check",
-        icon_fill_color: "#5c5",
-        icon_description: "Healthy",
-        sysinfo: sysinfo,
-      })}
-    end
+    {:noreply, socket |> assign(%{
+      sysinfo: sysinfo,
+    })}
   end
 
   def render(assigns) do
+    # <.live_component
+    # module={Madari.LiveComponents.HealthIcon}
+    # id="health_icon" sysinfo={assigns[:sysinfo]}/>
+
     ~H"""
       <nav class="navbar is-transparent is-fixed-bottom is-dark">
         <div class="navbar-brand">
-          <a class="navbar-item" href="#">
-            <FontAwesome.LiveView.icon name={@icon_style}
-              opts={[aria_hidden: true, height: "16px", fill: @icon_fill_color,
-              style: "margin-right: -.75rem;"]} />
-            <%= live_patch @icon_description,
-              to: Routes.live_path(@socket, MadariWeb.HomeLive),
-              class: "navbar-item" %>
-          </a>
-          <div class="navbar-burger" data-target="navbarExampleTransparentExample">
+        <div class="navbar-burger" data-target="navbarExampleTransparentExample">
             <span></span>
             <span></span>
             <span></span>
@@ -63,17 +33,14 @@ defmodule MadariWeb.Navbar.Bottom do
 
         <div id="navbarExampleTransparentExample" class="navbar-menu">
           <div class="navbar-start">
-            <a class="navbar-item" href="#">
-              <%= @sysinfo[:uptime_load] %>
-            </a>
           </div>
 
           <div class="navbar-end">
             <a class="navbar-item" href="#">
-              Services
+              Tasks
             </a>
             <a class="navbar-item" href="#">
-              Tasks
+              Services
             </a>
             <a class="navbar-item" href="#">
               Utilities
