@@ -1,5 +1,7 @@
 defmodule MadariWeb.Navbar.Bottom do
   use Phoenix.LiveView
+  alias Phoenix.LiveView.JS
+
   alias Madari.Api.Sysinfo
   alias MadariWeb.Router.Helpers, as: Routes
 
@@ -16,6 +18,26 @@ defmodule MadariWeb.Navbar.Bottom do
     })}
   end
 
+  def toggle_burger_menu(js \\ %JS{}) do
+    js
+    |> JS.remove_class(
+      "is-active",
+      to: "#navbar-bottom.is-active"
+    )
+    |> JS.add_class(
+      "is-active",
+      to: "#navbar-bottom:not(.is-active)"
+    )
+    |> JS.remove_class(
+      "is-active",
+      to: "#navbar-bottom-burger.is-active"
+    )
+    |> JS.add_class(
+      "is-active",
+      to: "#navbar-bottom-burger:not(.is-active)"
+    )
+  end
+
   def render(assigns) do
     # <.live_component
     # module={Madari.LiveComponents.HealthIcon}
@@ -24,14 +46,14 @@ defmodule MadariWeb.Navbar.Bottom do
     ~H"""
       <nav class="navbar is-transparent is-fixed-bottom is-dark">
         <div class="navbar-brand">
-        <div class="navbar-burger" data-target="navbarExampleTransparentExample">
+        <div class="navbar-burger" phx-click={toggle_burger_menu()} id="navbar-bottom-burger" >
             <span></span>
             <span></span>
             <span></span>
           </div>
         </div>
 
-        <div id="navbarExampleTransparentExample" class="navbar-menu">
+        <div id="navbar-bottom" class="navbar-menu">
           <div class="navbar-start">
           </div>
 
