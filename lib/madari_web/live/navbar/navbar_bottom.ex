@@ -39,13 +39,12 @@ defmodule MadariWeb.Navbar.Bottom do
   end
 
   def render(assigns) do
-    # <.live_component
-    # module={Madari.LiveComponents.HealthIcon}
-    # id="health_icon" sysinfo={assigns[:sysinfo]}/>
-
     ~H"""
       <nav class="navbar is-transparent is-fixed-bottom is-dark">
         <div class="navbar-brand">
+          <.live_component
+            module={Madari.LiveComponents.HealthIcon}
+            id="health_icon" sysinfo={assigns[:sysinfo]}/>
         <div class="navbar-burger" phx-click={toggle_burger_menu()} id="navbar-bottom-burger" >
             <span></span>
             <span></span>
