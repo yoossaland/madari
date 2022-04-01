@@ -6,7 +6,7 @@ defmodule Madari.LiveComponents.HealthIcon do
   @default %{
     name: "heart-circle-minus",
     color: "#aaa",
-    text: "Unknown",
+    text: "",
   }
 
   def update(assigns, socket) do
