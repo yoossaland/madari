@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="has-navbar-fixed-bottom has-navbar-fixed-top">
+<html lang="en" class={if @current_user do "has-navbar-fixed-bottom has-navbar-fixed-top" end}>
   <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -11,9 +11,13 @@
   </head>
   <body>
     <%#= render "_navbar_top.html", assigns %>
-    <%= live_render(@conn, MadariWeb.Navbar.Top, id: "navbar-top") %>
+    <%= if @current_user do %>
+      <%= live_render(@conn, MadariWeb.Navbar.Top, id: "navbar-top") %>
+    <% end %>
     <%= @inner_content %>
     <%#= render "_navbar_bottom.html", assigns %>
-    <%= live_render(@conn, MadariWeb.Navbar.Bottom, id: "navbar-top") %>
+    <%= if @current_user do %>
+      <%= live_render(@conn, MadariWeb.Navbar.Bottom, id: "navbar-top") %>
+    <% end %>
   </body>
 </html>
