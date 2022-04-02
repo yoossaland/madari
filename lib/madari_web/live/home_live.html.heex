@@ -32,7 +32,16 @@
 
       <.column>
         <.title class="is-6">
-          Uptime is <%= @sysinfo[:uptime] %>
+          <%= @sysinfo[:datetime] %>
+        </.title>
+        <.subtitle class="is-7">
+          System time is synced
+        </.subtitle>
+      </.column>
+
+      <.column>
+        <.title class="is-6">
+          Up since <%= @sysinfo[:uptime] %>
         </.title>
         <.subtitle class="is-7">
           <%= @sysinfo[:boottime] %>
@@ -41,19 +50,59 @@
 
       <.column>
         <.title class="is-6">
-          <%= @sysinfo[:machine] |> String.upcase() %> with <%= @sysinfo[:ncpu] %> cores
+          !!!Current BE: default
         </.title>
         <.subtitle class="is-7">
-          <%= @sysinfo[:model] %>
+          <p>!!!Default BE: default </p>
+          <p>!!!Fallback BE: 2022-01-01-update-p7</p>
+        </.subtitle>
+      </.column>
+
+    </.columns>
+    <.columns>
+
+      <.column>
+        <.title class="is-6">
+          !!!Memory: 4GB used, 11.86 GB free
+        </.title>
+        <.subtitle class="is-7">
+          Installed: <%= Sizeable.filesize(@sysinfo[:physmem]) %>
         </.subtitle>
       </.column>
 
       <.column>
         <.title class="is-6">
-          <%= Sizeable.filesize(@sysinfo[:physmem]) %>
+          !!!CPU usage: 5%
         </.title>
         <.subtitle class="is-7">
-          Physical Memory
+          <p>
+            !!!Load average: 1.23, 0.92, 0.78
+          </p>
+          <p>
+            <%= @sysinfo[:model] %>
+          </p>
+          <p>
+            <%= @sysinfo[:machine] |> String.upcase() %> with <%= @sysinfo[:ncpu] %> cores
+          </p>
+        </.subtitle>
+      </.column>
+
+      <.column>
+        <.title class="is-6">
+          !!!Storage: 7% full
+        </.title>
+        <.subtitle class="is-7">
+          !!!zroot: 728.1 GB available
+        </.subtitle>
+      </.column>
+
+
+      <.column>
+        <.title class="is-6">
+          !!!Network: 274 kB/s down, 23 kB/s up
+        </.title>
+        <.subtitle class="is-7">
+          !!!29 GB used since 1 Mar 2022
         </.subtitle>
       </.column>
 

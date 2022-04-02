@@ -63,14 +63,21 @@ defmodule Madari.Api.Sysinfo do
       ncpu: sysctl_read("hw.ncpu"),
       physmem: sysctl_read("hw.physmem"),
       bootmethod: sysctl_read("machdep.bootmethod"),
+      datetime: query_datetime(),
     }
     broadcast({:sysinfo, state})
-    Process.send_after(self(), :update_state, 10000)
+    Process.send_after(self(), :update_state, 5000)
     {:noreply, state}
   end
 
   # Internal API
   defp sysctl_read(oid) do
     Madari.Api.Sysctl.read(oid)
+  end
+
+  defp query_datetime() do
+    {out, _status} = System.cmd("date", [])
+    iostat = out
+      |> String.trim()
   end
 end
