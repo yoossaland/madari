@@ -1,70 +1,64 @@
-<div class="card">
-  <header class="card-header">
-    <p class="card-header-title">
-      Host
-    </p>
-    <button class="card-header-icon" aria-label="more options">
-      <span class="icon">
-        <FontAwesome.LiveView.icon name="server"
-          opts={[aria_hidden: true, height: "20px", fill: "#888"]}/>
-      </span>
-    </button>
-  </header>
-  <div class="card-content">
-    <div class="content">
-      <div class="columns">
-        <div class="column">
-          <h4 class="title is-4">
-            <%= @sysinfo[:hostname] %>
-          </h4>
-          <h6 class="subtitle is-7" style="color: #999">
-            Hostname
-          </h6>
-        </div>
-      </div>
+<.card 
+  id="host-info"
+  icon="server" 
+  icon_color="#888">
 
-      <div class="columns">
-        <div class="column">
-          <h4 class="title is-6">
-            <%= @sysinfo[:ostype] %> <%= @sysinfo[:osrelease] %>
-          </h4>
-          <h6 class="subtitle is-7" style="color: #999">
-            Operating System booted via <%= @sysinfo[:bootmethod] %> 
-          </h6>
-        </div>
-        <div class="column">
-          <h4 class="title is-6">
-            Uptime is <%= @sysinfo[:uptime] %>
-          </h4>
-          <h6 class="subtitle is-7" style="color: #999">
-            <%= @sysinfo[:boottime] %>
-          </h6>
-        </div>
-      </div>
+  <:header>Host</:header>
 
-      <div class="columns">
+  <:content>
 
-        <div class="column">
-          <h4 class="title is-6">
-            <%= @sysinfo[:machine] |> String.upcase() %> with <%= @sysinfo[:ncpu] %> cores
-          </h4>
-          <h6 class="subtitle is-7" style="color: #999">
-            <%= @sysinfo[:model] %>
-          </h6>
-        </div>
+    <.columns>
 
-        <div class="column">
-          <h4 class="title is-6">
-            <%= Sizeable.filesize(@sysinfo[:physmem]) %>
-          </h4>
-          <h6 class="subtitle is-7" style="color: #999">
-            Physical Memory
-          </h6>
-        </div>
+      <.column>
+        <.title class="is-4">
+          <%= @sysinfo[:hostname] %>
+        </.title>
+        <.subtitle class="is-6">
+          Hostname
+        </.subtitle>
+      </.column>
 
-      </div>
+    </.columns>
+    <.columns>
 
-    </div>
-  </div>
-</div>
+      <.column>
+        <.title class="is-6">
+          <%= @sysinfo[:ostype] %> <%= @sysinfo[:osrelease] %>
+        </.title>
+        <.subtitle class="is-7">
+          Operating System booted via <%= @sysinfo[:bootmethod] %>
+        </.subtitle>
+      </.column>
 
+      <.column>
+        <.title class="is-6">
+          Uptime is <%= @sysinfo[:uptime] %>
+        </.title>
+        <.subtitle class="is-7">
+          <%= @sysinfo[:boottime] %>
+        </.subtitle>
+      </.column>
+
+      <.column>
+        <.title class="is-6">
+          <%= @sysinfo[:machine] |> String.upcase() %> with <%= @sysinfo[:ncpu] %> cores
+        </.title>
+        <.subtitle class="is-7">
+          <%= @sysinfo[:model] %>
+        </.subtitle>
+      </.column>
+
+      <.column>
+        <.title class="is-6">
+          <%= Sizeable.filesize(@sysinfo[:physmem]) %>
+        </.title>
+        <.subtitle class="is-7">
+          Physical Memory
+        </.subtitle>
+      </.column>
+
+    </.columns>
+
+  </:content>
+
+</.card>

@@ -19,11 +19,11 @@ defmodule MadariWeb.Navbar.Top do
     js
     |> JS.remove_class(
       "is-active",
-      to: "#navbar-top.is-active"
+      to: "#navbar-top-menu.is-active"
     )
     |> JS.add_class(
       "is-active",
-      to: "#navbar-top:not(.is-active)"
+      to: "#navbar-top-menu:not(.is-active)"
     )
     |> JS.remove_class(
       "is-active",
@@ -37,7 +37,7 @@ defmodule MadariWeb.Navbar.Top do
 
   def render(assigns) do
     ~H"""
-    <nav class="navbar is-fixed-top is-warning">
+    <nav id="navbar-top" class="navbar is-fixed-top is-warning">
       <div class="navbar-brand">
         <%= live_patch "Madari",
           to: Routes.live_path(@socket, MadariWeb.HomeLive),
@@ -51,7 +51,7 @@ defmodule MadariWeb.Navbar.Top do
         </div>
       </div>
 
-      <div id="navbar-top" class="navbar-menu">
+      <div id="navbar-top-menu" class="navbar-menu">
         <div class="navbar-start">
           <a class="navbar-item" href="#">
             <span class="icon">

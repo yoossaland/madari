@@ -11,14 +11,14 @@
     <link rel="shortcut icon" type="image/png" href={Routes.static_path(@conn, "/images/icon.png")}/>
   </head>
   <body>
-    <%#= render "_navbar_top.html", assigns %>
     <%= if @current_user do %>
       <%= live_render(@conn, MadariWeb.Navbar.Top, id: "navbar-top") %>
     <% end %>
+
     <%= @inner_content %>
-    <%#= render "_navbar_bottom.html", assigns %>
+
     <%= if @current_user do %>
-      <%= live_render(@conn, MadariWeb.Navbar.Bottom, id: "navbar-top") %>
+      <%= live_render(@conn, MadariWeb.Navbar.Bottom, id: "navbar-bottom") %>
     <% end %>
   </body>
 </html>
