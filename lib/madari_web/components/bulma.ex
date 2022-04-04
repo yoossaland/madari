@@ -98,10 +98,12 @@ defmodule Madari.Bulma do
     assigns =
       assigns
       |> assign_new(:class, fn -> "" end)
+      |> assign_new(:closed, fn -> nil end)
 
     ~H"""
     <div class="card" id={"#{@id}-card"}>
-      <header class="card-header" id={"#{@id}-header"} phx-click={toggle_host_info(@id)}} style="background-color: #eee;">
+      <header class="card-header" id={"#{@id}-header"} phx-click={toggle_host_info(@id)}}
+        style="background-color: #eee;">
         <p class="card-header-title">
           <%= render_slot(@header) %>
         </p>
@@ -112,7 +114,7 @@ defmodule Madari.Bulma do
           </span>
         </button>
       </header>
-      <div class="card-content" id={"#{@id}-content"}>
+      <div class="card-content" id={"#{@id}-content"} style={if @closed do "display: none;" else "" end}>
         <%= render_slot(@content) %>
       </div>
     </div>
