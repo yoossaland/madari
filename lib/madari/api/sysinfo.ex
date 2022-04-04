@@ -1,6 +1,8 @@
 defmodule Madari.Api.Sysinfo do
   use GenServer
   use Timex
+  alias Madari.Api.Sysrc
+  alias Freedive.Api.Bootenv
 
   @name __MODULE__
   @topic "sysinfo"
@@ -64,6 +66,10 @@ defmodule Madari.Api.Sysinfo do
       physmem: sysctl_read("hw.physmem"),
       bootmethod: sysctl_read("machdep.bootmethod"),
       datetime: query_datetime(),
+      be_default: Sysrc.read("default_be", "/madari/madari.conf"),
+      be_current: Bootenv.be_current(),
+      be_fallback: Bootenv.be_fallback(),
+      top_raw: query_top(),
     }
     broadcast({:sysinfo, state})
     Process.send_after(self(), :update_state, 5000)
@@ -77,6 +83,18 @@ defmodule Madari.Api.Sysinfo do
 
   defp query_datetime() do
     {out, _status} = System.cmd("date", [])
+    iostat = out
+      |> String.trim()
+  end
+
+  defp query_be_current() do
+    {out, _status} = System.cmd("date", [])
+    iostat = out
+      |> String.trim()
+  end
+
+  defp query_top() do
+    {out, _status} = System.cmd("top", ["-CHb"])
     iostat = out
       |> String.trim()
   end

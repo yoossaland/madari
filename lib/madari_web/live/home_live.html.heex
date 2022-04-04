@@ -50,11 +50,11 @@
 
       <.column>
         <.title class="is-6">
-          !!!Current BE: default
+          Current BE: <%= @sysinfo[:be_current][:name] %>
         </.title>
         <.subtitle class="is-7">
-          <p>!!!Default BE: default </p>
-          <p>!!!Fallback BE: 2022-01-01-update-p7</p>
+          <p>Default BE: <%= @sysinfo[:be_default] %></p>
+          <p>Fallback BE: <%= @sysinfo[:be_fallback][:name] %></p>
         </.subtitle>
       </.column>
 
@@ -106,6 +106,28 @@
         </.subtitle>
       </.column>
 
+    </.columns>
+
+  </:content>
+
+</.card>
+
+<.card 
+  id="host-top"
+  icon="arrow-turn-up" 
+  icon_color="#888">
+
+  <:header>
+    top
+  </:header>
+
+  <:content>
+    <.columns>
+      <.column>
+<pre>
+<%= @sysinfo[:top_raw] %>
+</pre>
+      </.column>
     </.columns>
 
   </:content>
