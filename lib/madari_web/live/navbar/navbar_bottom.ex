@@ -42,34 +42,7 @@ defmodule MadariWeb.Navbar.Bottom do
     ~H"""
       <nav class="navbar is-transparent is-fixed-bottom is-dark">
         <div class="navbar-brand">
-          <.live_component
-            module={Madari.LiveComponents.HealthIcon}
-            id="health_icon" sysinfo={assigns[:sysinfo]}/>
-        <div class="navbar-burger" phx-click={toggle_burger_menu()} id="navbar-bottom-burger" >
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-        </div>
-
-        <div id="navbar-bottom" class="navbar-menu">
-          <div class="navbar-start">
-          </div>
-
-          <div class="navbar-end">
-            <a class="navbar-item" href="#">
-              Tasks
-            </a>
-            <a class="navbar-item" href="#">
-              Services
-            </a>
-            <a class="navbar-item" href="#">
-              Utilities
-            </a>
-            <a class="navbar-item" href="#">
-              Terminal
-            </a>
-            <div class="field has-addons navbar-item" style="margin: 0;">
+            <div class="field has-addons navbar-item" style="margin: 0; min-width: calc(100vw - .75rem);">
               <div class="control is-expanded">
                 <input class="input is-small is-fullwidth" type="text" placeholder="Find a repository">
               </div>
@@ -79,7 +52,6 @@ defmodule MadariWeb.Navbar.Bottom do
                 </a>
               </div>
             </div>
-          </div>
 
         </div>
       </nav>
