@@ -17,6 +17,10 @@ defmodule Madari.Api.Notification do
     GenServer.call(@name, :state)
   end
 
+  def send(title, message, priority) do
+    GenServer.cast(@name, {:send, title, message, priority})
+  end
+
   def subscribe do
     Phoenix.PubSub.subscribe(Madari.PubSub, @topic)
   end
@@ -47,6 +51,13 @@ defmodule Madari.Api.Notification do
   end
 
   @impl true
+  def handle_cast({:send, title, message, priority}, state) do
+    # Phoenix.PubSub.broadcast(Madari.PubSub, @topic, frame)
+    send_via_pushover(title, message, priority)
+    {:noreply, state}
+  end
+
+  @impl true
   def handle_cast({:broadcast, frame}, state) do
     Phoenix.PubSub.broadcast(Madari.PubSub, @topic, frame)
     {:noreply, state}
@@ -61,13 +72,16 @@ defmodule Madari.Api.Notification do
   # Internal API
   defp send_via_pushover(title, message, priority) do
     if Application.get_env(:pushover, :user) != nil and Application.get_env(:pushover, :token) != nil do
-      message = %Pushover.Model.Message{
-        data: message,
-        title: title,
-        priority: priority
-      }
-
-      Pushover.Api.Messages.send(message)
+      IO.puts("Sent pushover notification:\n#{title} [priority: #{priority}]\n#{message}")
+      payload = Poison.encode!(%{
+          token: Application.get_env(:pushover, :token),
+          user: Application.get_env(:pushover, :user),
+          title: title,
+          message: message,
+          priority: priority,
+      })
+      response = HTTPoison.post "https://api.pushover.net/1/messages.json", payload, [{"Content-Type", "application/json"}]
+      IO.inspect(response)
     else
       IO.puts("Skip Pushover notification as credentials are missing in madari.toml")
     end

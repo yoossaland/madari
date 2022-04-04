@@ -9,6 +9,7 @@ defmodule Madari.Api.Supervisor do
     children = [
       worker(Madari.Api.Notification, [[name: Madari.Api.Notification]]),
       worker(Madari.Api.Sysinfo, [[name: Madari.Api.Sysinfo]]),
+      worker(Madari.Api.Bootenv, [[name: Madari.Api.Bootenv]]),
     ]
 
     supervise(children, strategy: :one_for_one)

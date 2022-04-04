@@ -2,7 +2,8 @@ defmodule Madari.Api.Sysinfo do
   use GenServer
   use Timex
   alias Madari.Api.Sysrc
-  alias Freedive.Api.Bootenv
+  alias Madari.Api.Bootenv
+  alias Madari.Api.Command
 
   @name __MODULE__
   @topic "sysinfo"
@@ -67,8 +68,8 @@ defmodule Madari.Api.Sysinfo do
       bootmethod: sysctl_read("machdep.bootmethod"),
       datetime: query_datetime(),
       be_default: Sysrc.read("default_be", "/madari/madari.conf"),
-      be_current: Bootenv.be_current(),
-      be_fallback: Bootenv.be_fallback(),
+      be_current: Bootenv.current(),
+      be_fallback: Bootenv.fallback(),
       top_raw: query_top(),
       zfs_list_raw: query_zfs_list(),
       zpool_list_raw: query_zpool_list(),
@@ -84,49 +85,22 @@ defmodule Madari.Api.Sysinfo do
   end
 
   defp query_datetime() do
-    {out, _status} = System.cmd("date", [])
-    out |> String.trim()
-  end
-
-  defp query_be_current() do
-    {out, _status} = System.cmd("date", [])
+    {out, _status} = Command.execute("date", [])
     out |> String.trim()
   end
 
   defp query_top() do
-    {out, status} = execute("top", ["-b"])
+    {out, status} = Command.execute("top", ["-b"])
     out
   end
 
   defp query_zfs_list() do
-    {out, status} = execute("zfs", ["list"])
+    {out, status} = Command.execute("zfs", ["list"])
     out
   end
 
   defp query_zpool_list() do
-    {out, status} = execute("zpool", ["list"])
+    {out, status} = Command.execute("zpool", ["list"])
     out
-  end
-
-
-  defp execute(cmd, args) do
-    if is_root_user() do
-      {out, status} = System.cmd(cmd, args)
-      {
-        out |> String.trim(),
-        status
-      }
-    else
-      {out, status} = System.cmd("doas", [cmd] ++ args)
-      {
-        out |> String.trim(),
-        status
-      }
-    end
-  end
-
-  defp is_root_user() do
-    {out, status} = System.cmd("whoami", [])
-    out |> String.trim() |> String.equivalent?("root")
   end
 end

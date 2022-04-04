@@ -68,6 +68,7 @@ defmodule Madari.MixProject do
       {:rustler, "~> 0.24.0"},
       {:sizeable, "~> 1.0"},
       {:timex, "~> 3.0"},
+      {:httpoison, "~> 1.8"},
     ]
   end
 

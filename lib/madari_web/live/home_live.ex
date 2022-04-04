@@ -12,12 +12,15 @@ defmodule MadariWeb.HomeLive do
     })}
   end
 
+  def handle_params(_params, _url, socket) do
+    {:noreply, socket}
+  end
+
   def handle_info({:sysinfo, sysinfo}, socket) do
     {:noreply, socket |> assign(%{
       sysinfo: sysinfo,
     })}
   end
-
 
   def toggle_host_info(js \\ %JS{}) do
     js

@@ -78,6 +78,8 @@ defmodule MadariWeb.Router do
     get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
 
     live "/home", HomeLive
+    live "/bootenv", BootenvLive
+    live "/reboot", RebootLive
   end
 
   scope "/", MadariWeb do

@@ -1,0 +1,161 @@
+<nav class="panel">
+  <p class="panel-heading">
+    Boot Environments
+  </p>
+  <%= if @be_available do %>
+    <div class="panel-block">
+        <form class="control has-icons-left" phx-change="search" phx-submit="edit_or_create" style="width: 100%">
+          <input type="text" name="q" value={@query} placeholder="Search / Create BEs and Snapshots" autocomplete="off" class="input is-fullwidth"/>
+          <span class="icon is-left">
+            <FontAwesome.LiveView.icon name="magnifying-glass" opts={[aria_hidden: true, height: "18px", width: "18px"]} />
+          </span>
+        </form>
+    </div>
+    <%= if @be_editing_name == "" do %>
+      <p class="panel-tabs">
+        <a class="is-active">Boot Environments</a>
+        <a>Snapshots</a>
+      </p>
+      <%= for be <- @be_list do %>
+        <%= if be.name != @be_selected do %>
+          <a class={if be.is_current do "panel-block is-active" else "panel-block" end} phx-click="select_be" phx-value-name={be.name}>
+            <span class="panel-icon" style="min-width: 1.2rem;">
+              <i aria-hidden="true"><%= be.flags %></i>
+            </span>
+            <span style="margin-right: 1rem;"><%= be.name %></span>
+            <%= if be.is_current do %>
+              <span class="tag is-info">current</span>
+            <% end %>
+            <%= if be.is_default do %>
+              <%= if be.is_next do %>
+                <span class="tag is-success">default</span>
+              <% else %>
+                <span class="tag is-danger" title={"'#{be.name}' is default BE, but not next BE"}>default</span>
+              <% end %>
+            <% end %>
+            <%= if be.is_next and not be.is_default do %>
+              <span class="tag is-warning">next</span>
+            <% end %>
+            <%= if be.is_fallback do %>
+              <%= if be.is_default do %>
+                <span class="tag is-danger" title="fallback BE is same as default BE">fallback</span>
+              <% else %>
+                <span class="tag is-success">fallback</span>
+              <% end %>
+            <% end %>
+          </a>
+        <% else %>
+          <a class="panel-block is-active" style="padding: 0; border: 0; display: block;">
+            <div>
+              <div class="card" style="background-color: whitesmoke;">
+                <header class="card-header" style="box-shadow: none; display: flex; flex-direction: row;">
+                  <h3 class="card-header-title" style="padding-left: 2.5rem;">
+                    <%= be.name %>
+                  </h3>
+                </header>
+                <div class="card-content" style="padding: 0; padding-left: 2.5rem">
+                  <div class="content" style="padding: 0;">
+                    <%= if be.flags != "-" do %>
+                      <div class="block">
+                        <%= if be.is_current do %>
+                          <a class="tag is-info">current</a>
+                        <% end %>
+                        <%= if be.is_default do %>
+                          <%= if be.is_next do %>
+                            <a class="tag is-success">default</a>
+                          <% else %>
+                            <a class="tag is-danger" title={"'#{be.name}' is default BE, but not next BE"}>default</a>
+                          <% end %>
+                        <% end %>
+                        <%= if be.is_next and not be.is_default do %>
+                          <a class="tag is-warning">next</a>
+                        <% end %>
+                        <%= if be.is_fallback do %>
+                          <%= if be.is_default do %>
+                            <a class="tag is-danger" title="fallback BE is same as default BE">fallback</a>
+                          <% else %>
+                            <a class="tag is-success">fallback</a>
+                          <% end %>
+                        <% end %>
+                      </div>
+                    <% end %>
+                    <div class="block">
+                      <time datetime={be.creation}><%= be.creation %></time>
+                    </div>
+                  </div>
+                </div>
+                <footer class="card-footer" style="padding: 1rem; padding-left: 2rem; border-top: none;">
+                  <a href="#" class={if be.is_next do "card-footer-item button is-warning" else "card-footer-item button" end} style="margin: 0 0.5rem;" phx-click="next_be" phx-value-name={be.name}>Next</a>
+                  <a href="#" class="card-footer-item button" style="margin: 0 0.5rem;" phx-click="default_be" phx-value-name={be.name}>Default</a>
+                  <a href="#" class="card-footer-item button" style="margin: 0 0.5rem;" phx-click="fallback_be" phx-value-name={be.name}>Fallback</a>
+                  <a href="#" class="card-footer-item button" style="margin: 0 0.5rem;" phx-click="edit_be" phx-value-name={be.name}>Edit</a>
+                </footer>
+              </div>
+            </div>
+          </a>
+        <% end %>
+      <% end %>
+    <% else %>
+      <a class="panel-block">
+        <span class="panel-icon" style="min-width: 1.2rem;">
+          <FontAwesome.LiveView.icon name="circle-xmark" opts={[aria_hidden: true, height: "14px", width: "14px", "phx-click": "be_editing_close"]} />
+        </span>
+        Editing <%= @be_editing_name %>
+        <a class="panel-block is-active" style="padding: 0; border: 0; display: block;">
+          <div>
+            <div class="card" style="background-color: whitesmoke;">
+              <header class="card-header" style="box-shadow: none; display: flex; flex-direction: row;">
+                <h3 class="card-header-title" style="padding-left: 2.5rem;">
+                  <%= @be_editing.name %>
+                </h3>
+              </header>
+              <div class="card-content" style="padding: 0; padding-left: 2.5rem">
+                <div class="content" style="padding: 0;">
+                  <%= if @be_editing.flags != "-" do %>
+                    <div class="block">
+                      <%= if @be_editing.is_current do %>
+                        <a class="tag is-info">current</a>
+                      <% end %>
+                      <%= if @be_editing.is_default do %>
+                        <%= if @be_editing.is_next do %>
+                          <a class="tag is-success">default</a>
+                        <% else %>
+                          <a class="tag is-danger" title={"'#{@be_editing.name}' is default BE, but not next BE"}>default</a>
+                        <% end %>
+                      <% end %>
+                      <%= if @be_editing.is_next and not @be_editing.is_default do %>
+                        <a class="tag is-warning">next</a>
+                      <% end %>
+                      <%= if @be_editing.is_fallback do %>
+                        <%= if @be_editing.is_default do %>
+                          <a class="tag is-danger" title="fallback BE is same as default BE">fallback</a>
+                        <% else %>
+                          <a class="tag is-success">fallback</a>
+                        <% end %>
+                      <% end %>
+                    </div>
+                  <% end %>
+                  <div class="block">
+                    <time datetime={@be_editing.creation}><%= @be_editing.creation %></time>
+                  </div>
+                </div>
+              </div>
+              <footer class="card-footer" style="padding: 1rem; padding-left: 2rem; border-top: none;">
+                <a href="#" class="card-footer-item button" style="margin: 0 0.5rem;" phx-click="be_editing_close" phx-value-name={@be_editing.name}>Cancel</a>
+                <a href="#" class="card-footer-item button is-primary" style="margin: 0 0.5rem;" phx-click="be_editing_save" phx-value-name={@be_editing.name}>Save</a>
+              </footer>
+            </div>
+          </div>
+        </a>
+      </a>    
+
+    <% end %>
+  <% else %>
+    <a class="panel-block">
+      <span class="panel-icon" style="min-width: 1.2rem;">
+        <FontAwesome.LiveView.icon name="triangle-exclamation" opts={[aria_hidden: true, height: "14px", width: "14px"]} />
+      </span>
+      Boot Environments require ZFS and bectl
+    </a>    
+  <% end %>
+</nav>

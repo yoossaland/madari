@@ -99,6 +99,28 @@ defmodule MadariWeb.Navbar.Top do
                 </span>
                 <span>Software Updates</span>
               </a>
+              <div class="navbar-item" href="#">
+                <span class="icon">
+                  <FontAwesome.LiveView.icon name="download" opts={[aria_hidden: true, height: "16px", fill: "#555"]} />
+                </span>
+                <span>
+                    <%= live_patch "Boot Environments",
+                      to: Routes.live_path(@socket, MadariWeb.BootenvLive)
+                      # style: "color: #000; margin: 0; padding: 0 .75rem;"
+                    %>
+                </span>
+              </div>
+              <div class="navbar-item" href="#">
+                <span class="icon">
+                  <FontAwesome.LiveView.icon name="download" opts={[aria_hidden: true, height: "16px", fill: "#555"]} />
+                </span>
+                <span>
+                    <%= live_patch "Reboot",
+                      to: Routes.live_path(@socket, MadariWeb.RebootLive)
+                      # style: "color: #000; margin: 0; padding: 0 .75rem;"
+                    %>
+                </span>
+              </div>
             </div>
           </div>
 
