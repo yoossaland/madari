@@ -70,7 +70,6 @@ defmodule Madari.Api.Sysinfo do
       be_current: Bootenv.be_current(),
       be_fallback: Bootenv.be_fallback(),
       top_raw: query_top(),
-      pftop_raw: query_pftop(),
       zfs_list_raw: query_zfs_list(),
       zpool_list_raw: query_zpool_list(),
     }
@@ -86,37 +85,48 @@ defmodule Madari.Api.Sysinfo do
 
   defp query_datetime() do
     {out, _status} = System.cmd("date", [])
-    iostat = out
-      |> String.trim()
+    out |> String.trim()
   end
 
   defp query_be_current() do
     {out, _status} = System.cmd("date", [])
-    iostat = out
-      |> String.trim()
+    out |> String.trim()
   end
 
   defp query_top() do
-    {out, _status} = System.cmd("doas", ["top", "-CHb"])
-    iostat = out
-      |> String.trim()
-  end
-
-  defp query_pftop() do
-    {out, status} = System.cmd("doas", ["pftop", "-b"])
-    iostat = out
-      |> String.trim()
+    {out, status} = execute("top", ["-b"])
+    out
   end
 
   defp query_zfs_list() do
-    {out, status} = System.cmd("doas", ["zfs", "list"])
-    iostat = out
-      |> String.trim()
+    {out, status} = execute("zfs", ["list"])
+    out
   end
 
   defp query_zpool_list() do
-    {out, status} = System.cmd("doas", ["zpool", "list"])
-    iostat = out
-      |> String.trim()
+    {out, status} = execute("zpool", ["list"])
+    out
+  end
+
+
+  defp execute(cmd, args) do
+    if is_root_user() do
+      {out, status} = System.cmd(cmd, args)
+      {
+        out |> String.trim(),
+        status
+      }
+    else
+      {out, status} = System.cmd("doas", [cmd] ++ args)
+      {
+        out |> String.trim(),
+        status
+      }
+    end
+  end
+
+  defp is_root_user() do
+    {out, status} = System.cmd("whoami", [])
+    out |> String.trim() |> String.equivalent?("root")
   end
 end
