@@ -59,58 +59,11 @@
       </.column>
 
     </.columns>
-    <.columns>
-
-      <.column>
-        <.title class="is-6">
-          !!!Memory: 4GB used, 11.86 GB free
-        </.title>
-        <.subtitle class="is-7">
-          Installed: <%= Sizeable.filesize(@sysinfo[:physmem]) %>
-        </.subtitle>
-      </.column>
-
-      <.column>
-        <.title class="is-6">
-          !!!CPU usage: 5%
-        </.title>
-        <.subtitle class="is-7">
-          <p>
-            !!!Load average: 1.23, 0.92, 0.78
-          </p>
-          <p>
-            <%= @sysinfo[:model] %>
-          </p>
-          <p>
-            <%= @sysinfo[:machine] |> String.upcase() %> with <%= @sysinfo[:ncpu] %> cores
-          </p>
-        </.subtitle>
-      </.column>
-
-      <.column>
-        <.title class="is-6">
-          !!!Storage: 7% full
-        </.title>
-        <.subtitle class="is-7">
-          !!!zroot: 728.1 GB available
-        </.subtitle>
-      </.column>
-
-
-      <.column>
-        <.title class="is-6">
-          !!!Network: 274 kB/s down, 23 kB/s up
-        </.title>
-        <.subtitle class="is-7">
-          !!!29 GB used since 1 Mar 2022
-        </.subtitle>
-      </.column>
-
-    </.columns>
 
   </:content>
 
 </.card>
+
 
 <.card 
   id="host-top"
@@ -126,6 +79,75 @@
       <.column>
 <pre>
 <%= @sysinfo[:top_raw] %>
+</pre>
+      </.column>
+    </.columns>
+
+  </:content>
+
+</.card>
+
+
+<.card 
+  id="host-pftop"
+  icon="arrow-turn-up" 
+  icon_color="#888">
+
+  <:header>
+    pftop
+  </:header>
+
+  <:content>
+    <.columns>
+      <.column>
+<pre>
+<%= @sysinfo[:pftop_raw] %>
+</pre>
+      </.column>
+    </.columns>
+
+  </:content>
+
+</.card>
+
+
+<.card 
+  id="host-zfs_list"
+  icon="arrow-turn-up" 
+  icon_color="#888">
+
+  <:header>
+    zfs list
+  </:header>
+
+  <:content>
+    <.columns>
+      <.column>
+<pre>
+<%= @sysinfo[:zfs_list_raw] %>
+</pre>
+      </.column>
+    </.columns>
+
+  </:content>
+
+</.card>
+
+
+<.card 
+  id="host-zpool_list"
+  icon="arrow-turn-up" 
+  icon_color="#888">
+
+  <:header>
+    zpool list
+  </:header>
+
+  <:content>
+    <.columns>
+      <.column>
+<pre>
+<%= @sysinfo[:zpool_list_raw] %>
 </pre>
       </.column>
     </.columns>

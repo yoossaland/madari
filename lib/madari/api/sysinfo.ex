@@ -70,6 +70,9 @@ defmodule Madari.Api.Sysinfo do
       be_current: Bootenv.be_current(),
       be_fallback: Bootenv.be_fallback(),
       top_raw: query_top(),
+      pftop_raw: query_pftop(),
+      zfs_list_raw: query_zfs_list(),
+      zpool_list_raw: query_zpool_list(),
     }
     broadcast({:sysinfo, state})
     Process.send_after(self(), :update_state, 5000)
@@ -94,7 +97,25 @@ defmodule Madari.Api.Sysinfo do
   end
 
   defp query_top() do
-    {out, _status} = System.cmd("top", ["-CHb"])
+    {out, _status} = System.cmd("doas", ["top", "-CHb"])
+    iostat = out
+      |> String.trim()
+  end
+
+  defp query_pftop() do
+    {out, status} = System.cmd("doas", ["pftop", "-b"])
+    iostat = out
+      |> String.trim()
+  end
+
+  defp query_zfs_list() do
+    {out, status} = System.cmd("doas", ["zfs", "list"])
+    iostat = out
+      |> String.trim()
+  end
+
+  defp query_zpool_list() do
+    {out, status} = System.cmd("doas", ["zpool", "list"])
     iostat = out
       |> String.trim()
   end
