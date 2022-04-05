@@ -3,6 +3,7 @@ defmodule MadariWeb.Navbar.Top do
   alias Phoenix.LiveView.JS
   # alias Madari.Api.Sysinfo
   alias MadariWeb.Router.Helpers, as: Routes
+  import Madari.Bulma
 
   def mount(_params, _session, socket) do
     # if connected?(socket), do: Sysinfo.subscribe()
@@ -55,178 +56,75 @@ defmodule MadariWeb.Navbar.Top do
         <div class="navbar-start">
 
           <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link">
-              <span class="icon">
-                <FontAwesome.LiveView.icon name="microchip" opts={[aria_hidden: true, height: "18px", fill: "#555"]} />
-              </span>
-              <span>Compute</span>
-            </a>
+            <.navbar_link icon="server">
+              Host
+            </.navbar_link>
 
             <div class="navbar-dropdown">
-              <a class="navbar-item" href="#">
-                <span class="icon">
-                  <FontAwesome.LiveView.icon name="terminal" opts={[aria_hidden: true, height: "16px", fill: "#555"]} />
-                </span>
-                <span>Terminals</span>
-              </a>
-              <a class="navbar-item" href="#">
-                <span class="icon">
-                  <FontAwesome.LiveView.icon name="screwdriver-wrench" opts={[aria_hidden: true, height: "16px", fill: "#555"]} />
-                </span>
-                <span>Utilities</span>
-              </a>
-              <a class="navbar-item" href="#">
-                <span class="icon">
-                  <FontAwesome.LiveView.icon name="atom" opts={[aria_hidden: true, height: "16px", fill: "#555"]} />
-                </span>
-                <span>Services</span>
-              </a>
-              <a class="navbar-item" href="#">
-                <span class="icon">
-                  <FontAwesome.LiveView.icon name="box-archive" opts={[aria_hidden: true, height: "16px", fill: "#555"]} />
-                </span>
-                <span>Packages</span>
-              </a>
-              <a class="navbar-item" href="#">
-                <span class="icon">
-                  <FontAwesome.LiveView.icon name="clock" opts={[aria_hidden: true, height: "16px", fill: "#555"]} />
-                </span>
-                <span>Scheduled Tasks</span>
-              </a>
-              <a class="navbar-item" href="#">
-                <span class="icon">
-                  <FontAwesome.LiveView.icon name="download" opts={[aria_hidden: true, height: "16px", fill: "#555"]} />
-                </span>
-                <span>Software Updates</span>
-              </a>
-              <div class="navbar-item" href="#">
-                <span class="icon">
-                  <FontAwesome.LiveView.icon name="download" opts={[aria_hidden: true, height: "16px", fill: "#555"]} />
-                </span>
-                <span>
-                    <%= live_patch "Boot Environments",
-                      to: Routes.live_path(@socket, MadariWeb.BootenvLive)
-                      # style: "color: #000; margin: 0; padding: 0 .75rem;"
-                    %>
-                </span>
-              </div>
-              <div class="navbar-item" href="#">
-                <span class="icon">
-                  <FontAwesome.LiveView.icon name="download" opts={[aria_hidden: true, height: "16px", fill: "#555"]} />
-                </span>
-                <span>
-                    <%= live_patch "Reboot",
-                      to: Routes.live_path(@socket, MadariWeb.RebootLive)
-                      # style: "color: #000; margin: 0; padding: 0 .75rem;"
-                    %>
-                </span>
-              </div>
+              <.navbar_item icon="download">
+                Software Updates
+              </.navbar_item>
+
+              <.navbar_item icon="clock-rotate-left">
+                <%= live_patch "Boot Environments",
+                  to: Routes.live_path(@socket, MadariWeb.BootenvLive)
+                %>
+              </.navbar_item>
+
+              <.navbar_item icon="rotate-left">
+                <%= live_patch "Reboot",
+                  to: Routes.live_path(@socket, MadariWeb.RebootLive)
+                %>
+              </.navbar_item>
             </div>
           </div>
 
           <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link">
-              <span class="icon">
-                <FontAwesome.LiveView.icon name="hard-drive" opts={[aria_hidden: true, height: "16px", fill: "#555"]} />
-              </span>
-              <span>Storage</span>
-            </a>
+            <.navbar_link icon="microchip">
+              Compute
+            </.navbar_link>
 
             <div class="navbar-dropdown">
-              <a class="navbar-item" href="#">
-                <span class="icon">
-                  <FontAwesome.LiveView.icon name="folder" opts={[aria_hidden: true, height: "16px", fill: "#555"]} />
-                </span>
-                <span>Files</span>
-              </a>
-              <a class="navbar-item" href="#">
-                <span class="icon">
-                  <FontAwesome.LiveView.icon name="arrows-rotate" opts={[aria_hidden: true, height: "16px", fill: "#555"]} />
-                </span>
-                <span>Sync</span>
-              </a>
-              <a class="navbar-item" href="#">
-                <span class="icon">
-                  <FontAwesome.LiveView.icon name="arrow-up-from-bracket" opts={[aria_hidden: true, height: "16px", fill: "#555"]} />
-                </span>
-                <span>Shares</span>
-              </a>
-              <a class="navbar-item" href="#">
-                <span class="icon">
-                  <FontAwesome.LiveView.icon name="cloud-arrow-up" opts={[aria_hidden: true, height: "16px", fill: "#555"]} />
-                </span>
-                <span>Backups</span>
-              </a>
-              <a class="navbar-item" href="#">
-                <span class="icon">
-                  <FontAwesome.LiveView.icon name="folder-plus" opts={[aria_hidden: true, height: "16px", fill: "#555"]} />
-                </span>
-                <span>ZFS Datasets</span>
-              </a>
+              <.navbar_item icon="terminal">
+                Terminals
+              </.navbar_item>
             </div>
           </div>
-
 
           <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link">
-              <span class="icon">
-                <FontAwesome.LiveView.icon name="network-wired" opts={[aria_hidden: true, height: "16px", fill: "#555"]} />
-              </span>
-              <span>Network</span>
-            </a>
+            <.navbar_link icon="hard-drive">
+              Storage
+            </.navbar_link>
 
             <div class="navbar-dropdown">
-              <a class="navbar-item" href="#">
-                <span class="icon">
-                  <FontAwesome.LiveView.icon name="shield-halved" opts={[aria_hidden: true, height: "16px", fill: "#555"]} />
-                </span>
-                <span>VPN</span>
-              </a>
-              <a class="navbar-item" href="#">
-                <span class="icon">
-                  <FontAwesome.LiveView.icon name="earth-asia" opts={[aria_hidden: true, height: "16px", fill: "#555"]} />
-                </span>
-                <span>Sites</span>
-              </a>
-              <a class="navbar-item" href="#">
-                <span class="icon">
-                  <FontAwesome.LiveView.icon name="fire" opts={[aria_hidden: true, height: "16px", fill: "#555"]} />
-                </span>
-                <span>Firewall</span>
-              </a>
+              <.navbar_item icon="cloud-arrow-up">
+                Backups
+              </.navbar_item>
             </div>
           </div>
 
+          <div class="navbar-item has-dropdown is-hoverable">
+            <.navbar_link icon="network-wired">
+              Network
+            </.navbar_link>
 
-          <%#
-          <a class="navbar-item" href="#">
-            <span class="icon">
-              <FontAwesome.LiveView.icon name="network-wired" opts={[aria_hidden: true, height: "16px", fill: "#555"]} />
-            </span>
-            <span>Network</span>
-          </a>
-          %>
+            <div class="navbar-dropdown">
+              <.navbar_item icon="shield-halved">
+                VPN
+              </.navbar_item>
+            </div>
+          </div>
+
         </div>
 
         <div class="navbar-end">
-          <a class="navbar-item" href="#">
-            <span class="icon">
-              <FontAwesome.LiveView.icon name="bell" opts={[aria_hidden: true, height: "16px", fill: "#555"]} />
-            </span>
-            <span>Alerts</span>
-          </a>
-          <a class="navbar-item" href="#">
-            <span class="icon">
-              <FontAwesome.LiveView.icon name="chart-simple" opts={[aria_hidden: true, height: "16px", fill: "#555"]} />
-            </span>
-            <span>Metrics</span>
-          </a>
-          <a class="navbar-item" href="#">
-            <span class="icon">
-              <FontAwesome.LiveView.icon name="file-lines" opts={[aria_hidden: true, height: "16px", fill: "#555"]} />
-            </span>
-            <span>Logs</span>
-          </a>
+          <.navbar_item icon="screwdriver-wrench">
+            Preferences
+          </.navbar_item>
+
+          <.navbar_item icon="file-lines">
+            Logs
+          </.navbar_item>
         </div>
       </div>
     </nav>

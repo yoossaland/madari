@@ -211,4 +211,39 @@ defmodule Madari.Bulma do
     """
   end
 
+
+  def navbar_link(assigns) do
+    assigns =
+      assigns
+      |> assign_new(:class, fn -> "" end)
+      |> assign_new(:icon, fn -> "robot" end)
+      |> assign_new(:icon_color, fn -> "#555" end)
+
+    ~H"""
+    <div class="navbar-link">
+      <span class="icon">
+        <FontAwesome.LiveView.icon name={@icon} opts={[aria_hidden: true, height: "18px", fill: @icon_color]} />
+      </span>
+      <span><%= render_slot(@inner_block) %></span>
+    </div>
+    """
+  end
+
+  def navbar_item(assigns) do
+    assigns =
+      assigns
+      |> assign_new(:class, fn -> "" end)
+      |> assign_new(:icon, fn -> "robot" end)
+      |> assign_new(:icon_color, fn -> "#555" end)
+
+    ~H"""
+    <div class="navbar-item">
+      <span class="icon">
+        <FontAwesome.LiveView.icon name={@icon} opts={[aria_hidden: true, height: "18px", fill: @icon_color]} />
+      </span>
+      <span><%= render_slot(@inner_block) %></span>
+    </div>
+    """
+  end
+
 end
