@@ -1,1 +1,4 @@
 @import "bulma/bulma.css";
+
+#log-messages li:nth-child(odd) {background: #eee}
+#log-messages li:nth-child(even) {background: #fff}

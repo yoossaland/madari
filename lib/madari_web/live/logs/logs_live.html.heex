@@ -1,0 +1,13 @@
+<.tabs>
+
+  <.tab class="is-active">
+    all logs
+  </.tab>
+
+</.tabs>
+
+<ul id="log-messages" phx-update="append" phx-hook="LogsAppended">
+  <%= for log <- @log_stream do %>
+      <li id={log.id}><%= log.message %></li>
+  <% end %>
+</ul>

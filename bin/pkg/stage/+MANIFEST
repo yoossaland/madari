@@ -1,15 +1,14 @@
 name: "madari"
 version: "0.0.1"
 origin: "sysutils/madari"
-comment: "Turn a FreeBSD host into a modern hypervisor with a mobile-first web interface"
+comment: "Dive into FreeBSD"
 www: https://github.com/yoosaland/madari
 maintainer: harshad@sharma.io
 prefix: /
 desc: <<EOD
-Your Own Open Source Software Appliance
-
-Turn a FreeBSD host into a modern hypervisor with a mobile-first web interface.
+Dive into FreeBSD
 EOD
 deps: {
     sqlite3: {origin: databases/sqlite3, version: 3.35.5_3},
+    inotify-tools: {origin: sysutils/inotify-tools, version: 3.22.1_0},
 }

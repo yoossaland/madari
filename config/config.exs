@@ -53,6 +53,11 @@ config :phoenix, :json_library, Jason
 
 config :ex_fontawesome, type: "solid"
 
+config :porcelain, driver: Porcelain.Driver.Basic
+
+config :file_system, fs_inotify: [
+  executable_file: "/usr/local/bin/inotifywait"
+]
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"

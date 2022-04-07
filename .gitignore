@@ -42,3 +42,4 @@ npm-debug.log
 tls.crt
 tls.key
 madari.toml
+_attic/

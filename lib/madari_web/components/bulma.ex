@@ -83,7 +83,6 @@ defmodule Madari.Bulma do
     assigns =
       assigns
       |> assign_new(:class, fn -> "" end)
-      |> assign_new(:icon, fn -> nil end)
       |> assign_new(:icon_color, fn -> "#333" end)
       |> assign_new(:size, fn -> "default" end)
 
@@ -246,4 +245,38 @@ defmodule Madari.Bulma do
     """
   end
 
+  def tabs(assigns) do
+    assigns =
+      assigns
+      |> assign_new(:class, fn -> "" end)
+
+    ~H"""
+    <div class={"tabs #{@class}"}>
+      <ul>
+        <%= render_slot(@inner_block) %>
+      </ul>
+    </div>
+    """
+  end
+
+  def tab(assigns) do
+    assigns =
+      assigns
+      |> assign_new(:class, fn -> "" end)
+      |> assign_new(:icon, fn -> nil end)
+      |> assign_new(:icon_color, fn -> "#555" end)
+
+    ~H"""
+    <li class={@class}>
+      <a>
+        <%= if @icon do %>
+          <span class="icon">
+            <FontAwesome.LiveView.icon name={@icon} opts={[aria_hidden: true, height: "18px", fill: @icon_color]} />
+          </span>
+        <% end %>
+        <span><%= render_slot(@inner_block) %></span>
+      </a>
+    </li>
+    """
+  end
 end

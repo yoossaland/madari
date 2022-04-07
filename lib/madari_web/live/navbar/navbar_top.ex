@@ -38,7 +38,7 @@ defmodule MadariWeb.Navbar.Top do
 
   def render(assigns) do
     ~H"""
-    <nav id="navbar-top" class="navbar is-fixed-top is-warning">
+    <nav id="navbar-top" class="navbar is-fixed-top">
       <div class="navbar-brand">
         <%= live_patch "Madari",
           to: Routes.live_path(@socket, MadariWeb.HomeLive),
@@ -123,7 +123,9 @@ defmodule MadariWeb.Navbar.Top do
           </.navbar_item>
 
           <.navbar_item icon="file-lines">
-            Logs
+            <%= live_patch "Logs",
+              to: Routes.live_path(@socket, MadariWeb.LogsLive)
+            %>
           </.navbar_item>
         </div>
       </div>

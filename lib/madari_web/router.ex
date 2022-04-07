@@ -80,6 +80,7 @@ defmodule MadariWeb.Router do
     live "/home", HomeLive
     live "/bootenv", BootenvLive
     live "/reboot", RebootLive
+    live "/logs", LogsLive
   end
 
   scope "/", MadariWeb do

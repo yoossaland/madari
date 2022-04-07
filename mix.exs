@@ -29,7 +29,8 @@ defmodule Madari.MixProject do
   def application do
     [
       mod: {Madari.Application, []},
-      extra_applications: [:logger, :runtime_tools, :telemetry]
+      # applications: [:porcelain],
+      extra_applications: [:logger, :runtime_tools, :telemetry, :porcelain],
     ]
   end
 
@@ -69,6 +70,8 @@ defmodule Madari.MixProject do
       {:sizeable, "~> 1.0"},
       {:timex, "~> 3.0"},
       {:httpoison, "~> 1.8"},
+      {:file_system, "~> 0.2.10"},
+      {:porcelain, "~> 2.0"}
     ]
   end
 
