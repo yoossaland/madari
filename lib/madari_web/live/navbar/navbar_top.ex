@@ -119,7 +119,9 @@ defmodule MadariWeb.Navbar.Top do
 
         <div class="navbar-end">
           <.navbar_item icon="screwdriver-wrench">
-            Preferences
+            <%= live_patch "Preferences",
+              to: Routes.live_path(@socket, MadariWeb.PreferencesLive)
+            %>
           </.navbar_item>
 
           <.navbar_item icon="file-lines">

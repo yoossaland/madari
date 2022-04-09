@@ -43,6 +43,18 @@ defmodule Madari.Bulma do
     """
   end
 
+  def box(assigns) do
+    assigns =
+      assigns
+      |> assign_new(:class, fn -> "" end)
+
+    ~H"""
+    <div class={"box #{@class}"}>
+      <%= render_slot(@inner_block) %>
+    </div>
+    """
+  end
+
   def content(assigns) do
     assigns =
       assigns
@@ -277,6 +289,45 @@ defmodule Madari.Bulma do
         <span><%= render_slot(@inner_block) %></span>
       </a>
     </li>
+    """
+  end
+
+  def preference_field(assigns) do
+    assigns =
+      assigns
+      # |> assign_new(:name, fn -> "" end) # required
+      |> assign_new(:label, fn -> "" end)
+      |> assign_new(:placeholder, fn -> "" end)
+      |> assign_new(:type, fn -> "text" end)
+      |> assign_new(:class, fn -> "" end)
+      |> assign_new(:icon, fn -> nil end)
+      |> assign_new(:icon_color, fn -> "#ccc" end)
+      |> assign_new(:disabled, fn -> nil end)
+
+      ~H"""
+    <div class="field">
+      <label class="label">
+        <%= render_slot(@label) %>
+        <span class="tag">
+          <%= render_slot(@key) %>
+        </span>
+      </label>
+      <div class={if @icon do "control has-icons-left" else "control" end}>
+        <input class="input" name={@name} id={@name} type={@type}
+          placeholder={render_slot(@placeholder)}
+          disabled={@disabled}
+          value={render_slot(@value)}>
+        <%= if @icon do %>
+          <span class="icon is-small is-left">
+            <FontAwesome.LiveView.icon name={@icon}
+              opts={[aria_hidden: true, height: "18px", fill: @icon_color]} />
+          </span>
+        <% end %>
+      </div>
+      <p class="help" style="line-height: 2rem;"><%= render_slot(@help) %></p>
+      <p class="help" style="line-height: 2rem;"><%= render_slot(@default) %></p>
+      <p class="help" style="line-height: 2rem;"><%= render_slot(@choices) %></p>
+    </div>
     """
   end
 end

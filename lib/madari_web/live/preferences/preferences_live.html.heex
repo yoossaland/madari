@@ -1,0 +1,33 @@
+  <%= for name <- Map.keys(@prefs) do %>
+<.box>
+    <.preference_field name={name} icon={@prefs[name][:icon]}>
+      <:label><%= @prefs[name][:label] %></:label>
+      <:placeholder><%= @prefs[name][:default] %></:placeholder>
+      <:value><%= @prefs[name][:value] %></:value>
+      <:key>
+        <%= name %>
+      </:key>
+      <:help>
+        <%= @prefs[name][:help] %>
+      </:help>
+      <:default>
+        <%= if @prefs[name][:default] != "" do %>
+          Default: 
+          <span class="tag is-info">
+            <%= @prefs[name][:default] %>
+          </span>
+        <% end %>
+      </:default>
+      <:choices>
+        <%= if @prefs[name][:choices] != [] do %>
+          Choices:
+          <%= for choice <- @prefs[name][:choices] do %>
+            <span class="tag is-warning">
+              <%= choice %>
+            </span>
+          <% end %>
+        <% end %>
+      </:choices>
+    </.preference_field>
+</.box>
+  <% end %>

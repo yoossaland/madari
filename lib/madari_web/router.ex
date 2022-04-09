@@ -81,6 +81,7 @@ defmodule MadariWeb.Router do
     live "/bootenv", BootenvLive
     live "/reboot", RebootLive
     live "/logs", LogsLive
+    live "/preferences", PreferencesLive
   end
 
   scope "/", MadariWeb do
